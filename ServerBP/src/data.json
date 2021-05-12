@@ -1,0 +1,35 @@
+[
+    {
+        "numberAccount": "47562",
+        "total": 1000,
+        "corporation":"Banco del Pichincha",
+        "user":{
+            "name": "Monica",
+            "lastName": "Morales",
+            "userName": "monicamorales"
+        },
+        "transfers":[]
+    },
+    {
+        "numberAccount": "75412",
+        "total": 900,
+        "corporation":"Banco del Pichincha",
+        "user":{
+            "name": "Gonzalo",
+            "lastName": "Matute",
+            "userName": "gonzalomatute"
+        },
+        "transfers":[]
+    },
+    {
+        "numberAccount": "74521",
+        "total": 20000,
+        "corporation":"Banco del Pichincha",
+        "user":{
+            "name": "Tania",
+            "lastName": "Gutierrez",
+            "userName": "taniagutierrez"
+        },
+        "transfers":[]
+    }
+]

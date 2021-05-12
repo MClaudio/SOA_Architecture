@@ -1,0 +1,58 @@
+[
+    {
+        "numberAccount": "01254",
+        "total": 100,
+        "corporation":"Banco del Austro",
+        "user":{
+            "name": "Claudio",
+            "lastName": "Maldonado",
+            "userName": "claudiomldo"
+        },
+        "transfers":[]
+    },
+    {
+        "numberAccount": "14256",
+        "total": 500,
+        "corporation":"Banco del Austro",
+        "user":{
+            "name": "Juan",
+            "lastName": "Martinez",
+            "userName": "juanmartinez"
+        },
+        "transfers":[]
+    },
+    {
+        "numberAccount": "54231",
+        "total": 500,
+        "corporation":"Banco del Austro",
+        "user":{
+            "name": "Jose",
+            "lastName": "Cuji",
+            "userName": "josecuji"
+        },
+        "transfers":[]
+    },
+    {
+        "numberAccount": "75632",
+        "total": 10000,
+        "corporation":"Banco del Austro",
+        "user":{
+            "name": "Mario",
+            "lastName": "Gomez",
+            "userName": "mariogomez"
+        },
+        "transfers":[]
+    },
+    {
+        "numberAccount": "95632",
+        "total": 500,
+        "corporation":"Banco del Austro",
+        "user":{
+            "name": "Julio",
+            "lastName": "Marquez",
+            "userName": "juliomarquez"
+        },
+        "transfers":[]
+    }
+   
+]
