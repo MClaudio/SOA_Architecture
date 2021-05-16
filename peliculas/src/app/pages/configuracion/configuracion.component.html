@@ -1,0 +1,142 @@
+<nav class="navbar navbar-expand-lg " style="background-color: black;">
+    <div class="container-fluid">
+      <a class="navbar-brand" style="color: white;" href="" routerLink="/inicio">PELICULAS</a>
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarSupportedContent">
+        <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+          <li class="nav-item">
+            <a class="nav-link" style="color: white;" href="#" routerLink="/cuenta">Cuenta</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link active" style="color: white;" aria-current="page" href="" routerLink="/configuracion">Configuracion</a>
+          </li>
+        </ul>
+     
+      </div>
+    </div>
+  </nav>
+  <body>
+    <section class="all" style="width: 100%; background-color: black; height: 100%; justify-content: center; align-items: center; display: flex; flex-direction: column;" >
+        <div style="padding-top: 20px; width: 50%; justify-content: center; align-items: center; display: flex; flex-direction: column; background-color: rgb(204, 204, 204); border-radius: 10px; padding: 20px;" >
+            <h1 style="color: rgb(0, 0, 0);">Mi cuenta</h1>
+            <div style="padding-top: 10px;">
+              <label for="recipient-name" class="col-form-label" style="color: rgb(0, 0, 0); font-size: 2ch; margin-right: 10px;" >NUMERO DE CUENTA SELECCIONADO:</label>
+              <label for="recipient-name" class="col-form-label" style="color: rgb(0, 0, 0); font-size: 2ch; margin-right: 10px;">034923828743872</label>
+            </div>
+            <div style="padding-top: 10px;">
+                <label for="recipient-name" class="col-form-label" style="color: rgb(0, 0, 0); font-size: 2ch; margin-right: 10px;" >BANCO:</label>
+                <label for="recipient-name" class="col-form-label" style="color: rgb(0, 0, 0); font-size: 2ch; margin-right: 10px;">Banco del Austro</label>
+              </div>
+              <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal" data-bs-whatever="@mdo">Historial</button>
+
+        </div>
+        <div style="padding-top: 20px; margin-top: 10px; width: 50%; justify-content: center; align-items: center; display: flex; flex-direction: column; background-color: rgb(204, 204, 204); border-radius: 10px; padding: 20px;" >
+            <h1 style="color: rgb(0, 0, 0);">Configuracion</h1>
+            <div style="padding-top: 10px;">
+                <div class="mb-3">
+                    <label for="recipient-name" class="col-form-label">Ingrese su numero de cuenta:</label>
+                    <input type="text" class="form-control" id="recipient-name">
+                </div>
+                <div class="mb-3">
+                    <label for="recipient-name" class="col-form-label">Seleccione su banco:</label>
+                    <mat-form-field appearance="fill">
+                      <select matNativeControl required class="form-control" style="width: 200px; height: 35px; margin-left: 10px;">
+                        <option value="volvo">Banco de Pichincha</option>
+                        <option value="saab">Banco del Austro</option>
+                      </select>
+                    </mat-form-field>
+                  </div>            
+
+            </div>
+            <button mat-raised-button color="primary" style="margin-top: 10px;">Cambiar</button>
+
+  
+        </div>
+
+        <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true" >
+            <div class="modal-dialog">
+              <div class="modal-content">
+            
+                <div class="modal-body">
+                  <form>
+                    <div class="mb-3">
+                      <label for="recipient-name" class="col-form-label">Numero de cuenta:</label>
+                      <label for="recipient-name" class="col-form-label">03287287128712</label>
+                    </div>
+                    <div class="mb-3">
+                        <label for="recipient-name" class="col-form-label">Banco:</label>
+                        <label for="recipient-name" class="col-form-label">Banco del Austro</label>
+                      </div>
+                      <h2>HISTORIAL</h2>
+                      <div class="table-wrapper-scroll-y my-custom-scrollbar">
+    
+                        <table class="table table-bordered table-striped mb-0">
+                          <thead>
+                            <tr>
+                              <th scope="col">#</th>
+                              <th scope="col">Tipo</th>
+                              <th scope="col">Cuenta Destino</th>
+                              <th scope="col">Banco Destino</th>
+                              <th scope="col">Monto</th>
+                              <th scope="col">Fecha</th>
+                            </tr>
+                          </thead>
+                          <tbody>
+                            <tr>
+                              <th scope="row">1</th>
+                              <td>Send</td>
+                              <td>235223424334</td>
+                              <td>B. Del Austro</td>
+                              <td>20$</td>
+                              <td>22/06/2021</td>
+                            </tr>
+                            <tr>
+                                <th scope="row">1</th>
+                                <td>Send</td>
+                                <td>235223424334</td>
+                                <td>B. Del Austro</td>
+                                <td>20$</td>
+                                <td>22/06/2021</td>
+                              </tr>
+                              <tr>
+                                <th scope="row">1</th>
+                                <td>Send</td>
+                                <td>235223424334</td>
+                                <td>B. Del Austro</td>
+                                <td>20$</td>
+                                <td>22/06/2021</td>
+                              </tr>
+                              <tr>
+                                <th scope="row">1</th>
+                                <td>Send</td>
+                                <td>235223424334</td>
+                                <td>B. Del Austro</td>
+                                <td>20$</td>
+                                <td>22/06/2021</td>
+                              </tr>
+                              
+                          
+                          </tbody>
+                        </table>
+                      
+                      </div>
+                  </form>
+                  
+                </div>
+                <div class="modal-footer">
+                  <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+                
+                </div>
+              </div>
+            </div>
+          </div>
+        
+
+ 
+    </section>
+
+   
+    
+  </body>
