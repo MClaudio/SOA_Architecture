@@ -26,47 +26,55 @@ app.get("/account/:number", (req, res) => {
   if (account) {
     return res.send(account);
   } else {
-    return res.send({ message: "the account does not exist" });
+    return res.status(404).send({ message: "the account does not exist" });
   }
 });
 
-app.post("/account/:number/transfer-send", (req, res) => {
+app.post("/account/transfer-send", (req, res) => {
 
-  let account: Account = accountFind(req.params.number) as Account;
+  console.log("send", req.body)
+
+  let account: Account = accountFind(req.body.accountOrigin.account) as Account;
 
   if (account) {
     if (account.total > req.body.amount) {
       let transfer: Transfer = {
         type:"send",
-        userName: req.body.username,
-        organisation: req.body.corporation,
+        account_number: req.body.accountDestination.account,
+        organisation: req.body.accountDestination.organisation,
         amount: req.body.amount,
         date: new Date(),
       };
       account.total -= req.body.amount;
       account.transfers?.push(transfer);
-      return res.send(account);
+      return res.send(req.body);
     } else {
-      return res.send({ message: "The account balance is insufficient" });
+      return res.status(400).send({ message: "The account balance is insufficient" });
     }
   } else {
     return res.status(404).send({ message: "the account does not exist" });
   }
 });
 
-app.post("/account/:number/transfer-received", (req, res) => {
-  let account: Account = accountFind(req.params.number) as Account;
+app.post("/account/transfer-received", (req, res) => {
+  console.log("received", req.body)
+  let account: Account = accountFind(req.body.accountDestination.account) as Account;
+
   if (account) {
-    let transfer: Transfer = {
-      type:"received",
-      userName: req.body.username,
-      organisation: req.body.corporation,
-      amount: req.body.amount,
-      date: new Date(),
-    };
-    account.total += req.body.amount;
-    account.transfers?.push(transfer);
-    return res.send(account);
+    if (account.total > req.body.amount) {
+      let transfer: Transfer = {
+        type:"received",
+        account_number: req.body.accountOrigin.account,
+        organisation: req.body.accountOrigin.organisation,
+        amount: req.body.amount,
+        date: new Date(),
+      };
+      account.total += req.body.amount;
+      account.transfers?.push(transfer);
+      return res.send({status:"ok", process:req.body});
+    } else {
+      return res.status(400).send({ message: "The account balance is insufficient" });
+    }
   } else {
     return res.status(404).send({ message: "the account does not exist" });
   }
