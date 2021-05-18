@@ -7,7 +7,7 @@ import { CuentaComponent } from './pages/cuenta/cuenta.component';
 import { ConfiguracionComponent } from './pages/configuracion/configuracion.component';
 import { InicioComponent } from './pages/inicio/inicio.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-
+import { HttpClientModule} from "@angular/common/http";
 
 @NgModule({
   declarations: [
@@ -20,6 +20,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
     BrowserModule,
     AppRoutingModule,
     BrowserAnimationsModule,
+    HttpClientModule,
   ],
   providers: [
     

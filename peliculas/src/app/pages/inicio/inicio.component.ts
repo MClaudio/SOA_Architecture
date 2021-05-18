@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { SoaService } from '../../soa.service';
 
 
 
@@ -9,9 +10,17 @@ import { Component, OnInit } from '@angular/core';
 })
 export class InicioComponent implements OnInit {
 
-  constructor() { }
+  constructor(private soa:SoaService) { 
+    this.loadData();
+  }
 
   ngOnInit(): void {
+
+  }
+  loadData(){
+    this.soa.getMovieById(615457).subscribe(res=>{
+      console.log("movies", res)
+    })
   }
 
 }

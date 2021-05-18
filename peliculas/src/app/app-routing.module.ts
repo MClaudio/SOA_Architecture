@@ -12,7 +12,7 @@ import {ScrollingModule} from '@angular/cdk/scrolling';
 
 
 const routes: Routes = [
-  { path: "inicio", component: InicioComponent},
+  { path: "", component: InicioComponent},
   { path: "cuenta", component: CuentaComponent},
   { path: "configuracion", component: ConfiguracionComponent},
 ];
