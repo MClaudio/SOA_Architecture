@@ -11,8 +11,7 @@ app.use(cors());
 var movies = [];
 
 var accountSelected = {
-  username: "claudiomldo",
-  accountNumber: "75632",
+  account: "75632",
   corporation: "Banco del Austro",
 };
 
