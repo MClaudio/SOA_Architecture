@@ -1,6 +1,6 @@
 <nav class="navbar navbar-expand-lg " style="background-color: black;">
     <div class="container-fluid">
-      <a class="navbar-brand" style="color: white;" href="" routerLink="/inicio">PELICULAS</a>
+      <a class="navbar-brand" style="color: white;" href="" routerLink="/">PELICULAS</a>
       <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
       </button>
@@ -25,113 +25,56 @@
       <section class="gallery">
         <div class="container">
           <div class="all row row-cols-4">
-            <div class="card" style="width: 17rem;">
+            <div class="card" *ngFor="let movie of movies" style="width: 17rem;">
               <img src="../assets/1990423.jpg" style="height: 18rem;" class="card-img-top" alt="...">
               <div class="card-body">
-                <h5 class="card-title">Bob Esponja</h5>
-                <p class="card-text">2.00$</p>
-                <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal" data-bs-whatever="@mdo">Detalles</button>
+                <h5 class="card-title" style="font-size: 2ch; color: black;">{{movie.original_title}}</h5>
+                <p class="card-text"  style="font-size: 2ch; color: black;">{{movie.price}} $</p>
+                <button type="button" class="btn btn-primary" (click)="loadMovie(movie)" data-bs-toggle="modal" data-bs-target="#exampleModal" data-bs-whatever="@mdo">Detalles</button>
   
               </div>
             </div>
-            <div class="card" style="width: 17rem;">
-              <img src="../assets/1990423.jpg" style="height: 18rem;" class="card-img-top" alt="...">
-              <div class="card-body">
-                <h5 class="card-title">Bob Esponja</h5>
-                <p class="card-text">2.00$</p>
-                <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal" data-bs-whatever="@mdo">Detalles</button>
-  
-              </div>
-            </div>
-            <div class="card" style="width: 17rem;">
-              <img src="../assets/1990423.jpg" style="height: 18rem;" class="card-img-top" alt="...">
-              <div class="card-body">
-                <h5 class="card-title">Bob Esponja</h5>
-                <p class="card-text">2.00$</p>
-                <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal" data-bs-whatever="@mdo">Detalles</button>
-  
-              </div>
-            </div>
-            <div class="card" style="width: 17rem;">
-              <img src="../assets/1990423.jpg" style="height: 18rem;" class="card-img-top" alt="...">
-              <div class="card-body">
-                <h5 class="card-title">Bob Esponja</h5>
-                <p class="card-text">2.00$</p>
-                <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal" data-bs-whatever="@mdo">Detalles</button>
-  
-              </div>
-            </div>
-            <div class="card" style="width: 17rem;">
-              <img src="../assets/1990423.jpg" style="height: 18rem;" class="card-img-top" alt="...">
-              <div class="card-body">
-                <h5 class="card-title">Bob Esponja</h5>
-                <p class="card-text">2.00$</p>
-                <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal" data-bs-whatever="@mdo">Detalles</button>
-  
-              </div>
-            </div>
-            <div class="card" style="width: 17rem;">
-              <img src="../assets/1990423.jpg" style="height: 18rem;" class="card-img-top" alt="...">
-              <div class="card-body">
-                <h5 class="card-title">Bob Esponja</h5>
-                <p class="card-text">2.00$</p>
-                <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal" data-bs-whatever="@mdo">Detalles</button>
-  
-              </div>
-            </div>
-            <div class="card" style="width: 17rem;">
-              <img src="../assets/1990423.jpg" style="height: 18rem;" class="card-img-top" alt="...">
-              <div class="card-body">
-                <h5 class="card-title">Bob Esponja</h5>
-                <p class="card-text">2.00$</p>
-                <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal" data-bs-whatever="@mdo">Detalles</button>
-  
-              </div>
-            </div>
-            <div class="card" style="width: 17rem;">
-              <img src="../assets/1990423.jpg" style="height: 18rem;" class="card-img-top" alt="...">
-              <div class="card-body">
-                <h5 class="card-title">Bob Esponja</h5>
-                <p class="card-text">2.00$</p>
-                <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal" data-bs-whatever="@mdo">Detalles</button>
-  
-              </div>
-            </div>
-    
           </div>
         </div>
       </section>
     </div>
     
   
-    <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal fade"  id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
       <div class="modal-dialog">
-        <div class="modal-content">
+        <div class="modal-content" *ngIf="movie">
           <div class="modal-header" style="display: flex; flex-direction: column;">
-            <h2>BOB ESPONJA</h2>
-            <h4>2.00$</h4>
+            <h2>{{movie.original_title}}</h2>
+            <h4>{{movie.price}} $</h4>
            
           </div>
           <div class="modal-body">
+           <ng-container *ngIf="bougth; else elseTemplate">
+             <h3>Compra realizada correctamente</h3>
+           </ng-container>
+           <ng-template #elseTemplate>
             <form>
               <div class="mb-3">
                 <label for="recipient-name" class="col-form-label">Ingrese su numero de cuenta:</label>
-                <input type="text" class="form-control" id="recipient-name">
+                <input type="text" [(ngModel)]="tranfer.accountOrigin.account" name="account" class="form-control" id="recipient-name">
               </div>
               <div class="mb-3">
                 <label for="recipient-name" class="col-form-label">Seleccione su banco:</label>
                 
-                  <select required class="form-control" style="width: 200px; height: 35px; margin-left: 10px;">
-                    <option value="volvo">Banco de Pichincha</option>
-                    <option value="saab">Banco del Austro</option>
+                  <select required  [(ngModel)]="tranfer.accountOrigin.organisation" name="organisation" class="form-control" style="width: 200px; height: 35px; margin-left: 10px;">
+                    <option value="Banco de Pichincha">Banco de Pichincha</option>
+                    <option value="Banco del Austro">Banco del Austro</option>
                   </select>
              
               </div>
             </form>
+             
+           </ng-template>
+           
           </div>
           <div class="modal-footer">
             <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
-            <button type="button" class="btn btn-primary">Comprar</button>
+            <button type="button" *ngIf="!bougth" (click)="buy()" class="btn btn-primary">Comprar</button>
           </div>
         </div>
       </div>

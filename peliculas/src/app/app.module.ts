@@ -8,19 +8,23 @@ import { ConfiguracionComponent } from './pages/configuracion/configuracion.comp
 import { InicioComponent } from './pages/inicio/inicio.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { HttpClientModule} from "@angular/common/http";
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 @NgModule({
   declarations: [
     AppComponent,
     CuentaComponent,
     ConfiguracionComponent,
-    InicioComponent
+    InicioComponent,
+   
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     BrowserAnimationsModule,
     HttpClientModule,
+    ReactiveFormsModule,
+    FormsModule
   ],
   providers: [
     

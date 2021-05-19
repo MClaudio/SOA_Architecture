@@ -17,4 +17,16 @@ export class SoaService {
   getMovieById(id:number){
     return this.http.get(`${this.uri}/movies/${id}`);
   }
+  getAccount(acc:any){
+    return this.http.get(`${this.uri}/shop/get-account`);
+  }
+  postSearchAccount(acc:any){
+    return this.http.post(`${this.uri}/search-account`,JSON.parse(acc));
+  }
+  postTransfer(obj: any){
+    return this.http.post(`${this.uri}/transfer`,obj);
+  }
+  postChangeAccount(acc:Account){
+    return this.http.post(`${this.uri}/shop/change-account`,acc); 
+  }
 }
