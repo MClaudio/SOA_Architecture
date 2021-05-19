@@ -13,6 +13,7 @@ export class InicioComponent implements OnInit {
   public movie: any;
   public numAccount:any;
   public bougth:boolean=false;
+  public urlImg = 'https://image.tmdb.org/t/p/w500';
   
   public tranfer:any={
     amount:0,
