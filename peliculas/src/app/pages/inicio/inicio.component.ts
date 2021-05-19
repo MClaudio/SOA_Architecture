@@ -41,12 +41,14 @@ export class InicioComponent implements OnInit {
   loadMovie(m: any){
     console.log(m)
     this.movie=m;
-    this.tranfer.accountDestination={"account":this.movie.pay_detail.account,
+    this.tranfer.accountDestination={
+      "account":this.movie.pay_detail.account,
     "organisation":this.movie.pay_detail.corporation}
     this.bougth=false;
   }
   buy(){
     if(this.tranfer.accountOrigin.account && this.tranfer.accountOrigin.organisation){
+      this.tranfer.amount = this.movie.price;
       this.soa.postTransfer(this.tranfer).subscribe(res=>{
         console.log(res)
         this.tranfer.accountOrigin.account = null;
@@ -54,7 +56,7 @@ export class InicioComponent implements OnInit {
         this.bougth = true;
       },
       err=>{
-        console.log("erroooooo", err)
+        console.log("err", err)
       });
     }
  

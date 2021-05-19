@@ -11,8 +11,8 @@ app.use(cors());
 var movies = [];
 
 var accountSelected = {
-  account: "75632",
-  corporation: "Banco del Austro",
+  account: "47562",
+  corporation: "Banco del Pichincha",
 };
 
 app.listen(4000, () => {
