@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
+import { SoaService } from '../../soa.service';
 export interface PeriodicElement {
+  
   name: string;
   position: number;
   weight: number;
@@ -24,12 +26,21 @@ const ELEMENT_DATA: PeriodicElement[] = [
   styleUrls: ['./cuenta.component.scss']
 })
 export class CuentaComponent implements OnInit {
+  public bank:any={
+    account: "",
+    corporation: ""
+  }
 
   displayedColumns: string[] = ['position', 'name', 'weight', 'symbol'];
   dataSource = ELEMENT_DATA;
-  constructor() { }
+  constructor(private soa:SoaService) { }
 
   ngOnInit(): void {
+  }
+  searchAccount(){
+    this.soa.postSearchAccount(this.bank).subscribe(res=>{
+      console.log(res)
+    });
   }
 
 }

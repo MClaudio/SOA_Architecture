@@ -1,6 +1,6 @@
 <nav class="navbar navbar-expand-lg " style="background-color: black;">
     <div class="container-fluid">
-      <a class="navbar-brand" style="color: white;" href="" routerLink="/inicio">PELICULAS</a>
+      <a class="navbar-brand" style="color: white;" href="" routerLink="/">PELICULAS</a>
       <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
       </button>
@@ -23,11 +23,11 @@
             <h1 style="color: rgb(0, 0, 0);">Mi cuenta</h1>
             <div style="padding-top: 10px;">
               <label for="recipient-name" class="col-form-label" style="color: rgb(0, 0, 0); font-size: 2ch; margin-right: 10px;" >NUMERO DE CUENTA SELECCIONADO:</label>
-              <label for="recipient-name" class="col-form-label" style="color: rgb(0, 0, 0); font-size: 2ch; margin-right: 10px;">034923828743872</label>
+              <label for="recipient-name" class="col-form-label" style="color: rgb(0, 0, 0); font-size: 2ch; margin-right: 10px;">{{bank.account}}</label>
             </div>
             <div style="padding-top: 10px;">
                 <label for="recipient-name" class="col-form-label" style="color: rgb(0, 0, 0); font-size: 2ch; margin-right: 10px;" >BANCO:</label>
-                <label for="recipient-name" class="col-form-label" style="color: rgb(0, 0, 0); font-size: 2ch; margin-right: 10px;">Banco del Austro</label>
+                <label for="recipient-name" class="col-form-label" style="color: rgb(0, 0, 0); font-size: 2ch; margin-right: 10px;">{{bank.corporation}}</label>
               </div>
               <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal" data-bs-whatever="@mdo">Historial</button>
 
@@ -36,21 +36,19 @@
             <h1 style="color: rgb(0, 0, 0);">Configuracion</h1>
             <div style="padding-top: 10px;">
                 <div class="mb-3">
-                    <label for="recipient-name" class="col-form-label">Ingrese su numero de cuenta:</label>
-                    <input type="text" class="form-control" id="recipient-name">
+                    <label for="recipient-name"  class="col-form-label">Ingrese su numero de cuenta:</label>
+                    <input type="text" [(ngModel)]="accNew" class="form-control" id="recipient-name">
                 </div>
                 <div class="mb-3">
                     <label for="recipient-name" class="col-form-label">Seleccione su banco:</label>
-                    <mat-form-field appearance="fill">
-                      <select matNativeControl required class="form-control" style="width: 200px; height: 35px; margin-left: 10px;">
-                        <option value="volvo">Banco de Pichincha</option>
-                        <option value="saab">Banco del Austro</option>
-                      </select>
-                    </mat-form-field>
+                    <select matNativeControl required class="form-control" [(ngModel)]="corpNew" style="width: 200px; height: 35px; margin-left: 10px;">
+                      <option value="Banco de Pichincha">Banco de Pichincha</option>
+                      <option value="Banco del Austro">Banco del Austro</option>
+                    </select>
                   </div>            
 
             </div>
-            <button mat-raised-button color="primary" style="margin-top: 10px;">Cambiar</button>
+            <button mat-raised-button color="primary" (click)="changeAccount()" style="margin-top: 10px;">Cambiar</button>
 
   
         </div>
@@ -63,11 +61,11 @@
                   <form>
                     <div class="mb-3">
                       <label for="recipient-name" class="col-form-label">Numero de cuenta:</label>
-                      <label for="recipient-name" class="col-form-label">03287287128712</label>
+                      <label for="recipient-name" class="col-form-label">{{bank.account}}</label>
                     </div>
                     <div class="mb-3">
                         <label for="recipient-name" class="col-form-label">Banco:</label>
-                        <label for="recipient-name" class="col-form-label">Banco del Austro</label>
+                        <label for="recipient-name" class="col-form-label">{{bank.corporation}}</label>
                       </div>
                       <h2>HISTORIAL</h2>
                       <div class="table-wrapper-scroll-y my-custom-scrollbar">

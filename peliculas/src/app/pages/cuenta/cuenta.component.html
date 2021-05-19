@@ -1,6 +1,6 @@
 <nav class="navbar navbar-expand-lg " style="background-color: black;">
     <div class="container-fluid">
-      <a class="navbar-brand" style="color: white;" href="" routerLink="/inicio">PELICULAS</a>
+      <a class="navbar-brand" style="color: white;" href="" routerLink="/">PELICULAS</a>
       <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
       </button>
@@ -22,9 +22,14 @@
           <h2 style="color: rgb(204, 204, 204);">Consultar cuentas</h2>
           <div style="background-color: rgb(204, 204, 204); width: 500px; border-radius: 10px; padding: 10px;" >
             <div class="mb-3" style="justify-content: center; align-items: center; display: flex; flex-direction: column;">
-                <label for="recipient-name" class="col-form-label">Ingrese su numero de cuenta:</label>
-                <input type="text" class="form-control" id="recipient-name">
-                <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal" data-bs-whatever="@mdo">Consultar</button>
+                <label for="recipient-name"  class="col-form-label">Ingrese su numero de cuenta:</label>
+                <input type="text" class="form-control" [(ngModel)]="bank.account" name='account' id="recipient-name">
+                <label for="recipient-name"  class="col-form-label">Seleccione el banco:</label>
+                <select required  name="organisation" [(ngModel)]="bank.corporation" class="form-control" style="width: 200px; height: 35px; margin-left: 10px;">
+                  <option value="Banco de Pichincha">Banco de Pichincha</option>
+                  <option value="Banco del Austro">Banco del Austro</option>
+                </select>
+                <button type="button" (click)="searchAccount()" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal" data-bs-whatever="@mdo">Consultar</button>
               </div>
           </div>
       </section>
@@ -37,11 +42,11 @@
               <form>
                 <div class="mb-3">
                   <label for="recipient-name" class="col-form-label">Numero de cuenta:</label>
-                  <label for="recipient-name" class="col-form-label">03287287128712</label>
+                  <label for="recipient-name" class="col-form-label">{{bank.account}}</label>
                 </div>
                 <div class="mb-3">
                     <label for="recipient-name" class="col-form-label">Banco:</label>
-                    <label for="recipient-name" class="col-form-label">Banco del Austro</label>
+                    <label for="recipient-name" class="col-form-label">{{bank.corporation}}</label>
                   </div>
                   <h2>HISTORIAL</h2>
                   <div class="table-wrapper-scroll-y my-custom-scrollbar">
