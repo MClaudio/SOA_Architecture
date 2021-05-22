@@ -14,19 +14,28 @@ export class ConfiguracionComponent implements OnInit {
     account: "",
     corporation: ""
   }
+
+  public accout:any; 
   public accNew:any;
   public corpNew:any;
 
   ngOnInit(): void {
-    this.soa.getAccount(this.bank).subscribe(res=>{
+    this.loadData();
+  }
+  async loadData(){
+    await this.soa.getShopAccount().subscribe(async (res)=>{
       console.log(res)
+      await this.soa.searchAccount(res).subscribe(res=>{
+        console.log(res)
+        this.accout = res;
+      })
     });
   }
-  changeAccount(){
-    this.bank.account = this.accNew;
-    this.bank.corporation  = this.corpNew;
+  async changeAccount(){
+
     console.log(this.bank)
-    this.soa.postChangeAccount(this.bank).subscribe(res=>{
+    await this.soa.postChangeAccount(this.bank).subscribe(res=>{
+      this.loadData();
     })
   }
 

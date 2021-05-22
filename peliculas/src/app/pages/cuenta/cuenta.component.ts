@@ -30,6 +30,7 @@ export class CuentaComponent implements OnInit {
     account: "",
     corporation: ""
   }
+  public account:any;
 
   displayedColumns: string[] = ['position', 'name', 'weight', 'symbol'];
   dataSource = ELEMENT_DATA;
@@ -38,9 +39,14 @@ export class CuentaComponent implements OnInit {
   ngOnInit(): void {
   }
   searchAccount(){
-    this.soa.postSearchAccount(this.bank).subscribe(res=>{
+    this.soa.searchAccount(this.bank).subscribe((res:any)=>{
       console.log(res)
+      this.account =  res;
     });
+  }
+
+  nullAcount(){
+    this.account = null;
   }
 
 }

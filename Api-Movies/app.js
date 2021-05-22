@@ -74,7 +74,7 @@ app.post("/change-account", (req, res) => {
 });
 
 app.get("/get-account", (req, res) => {
-  //console.log(req.body)
+  console.log(accountSelected)
   return res.send(accountSelected);
 });
 

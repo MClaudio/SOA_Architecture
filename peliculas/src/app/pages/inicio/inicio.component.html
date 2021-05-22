@@ -49,8 +49,9 @@
            
           </div>
           <div class="modal-body">
-           <ng-container *ngIf="bougth; else elseTemplate">
-             <h3>Compra realizada correctamente</h3>
+           <ng-container *ngIf="bougth || error; else elseTemplate">
+             <h3 *ngIf="bougth">Compra realizada correctamente</h3>
+             <h3 *ngIf="error">Se produjo un error en la trasferencia</h3>
            </ng-container>
            <ng-template #elseTemplate>
             <form>
