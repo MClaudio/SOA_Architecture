@@ -1,0 +1,195 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<mule xmlns:batch="http://www.mulesoft.org/schema/mule/batch" xmlns:apikit-soap="http://www.mulesoft.org/schema/mule/apikit-soap"
+	xmlns:ee="http://www.mulesoft.org/schema/mule/ee/core"
+	xmlns:http="http://www.mulesoft.org/schema/mule/http" 
+	xmlns="http://www.mulesoft.org/schema/mule/core" 
+	xmlns:doc="http://www.mulesoft.org/schema/mule/documentation" 
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+	
+	xsi:schemaLocation="http://www.mulesoft.org/schema/mule/core http://www.mulesoft.org/schema/mule/core/current/mule.xsd
+http://www.mulesoft.org/schema/mule/http http://www.mulesoft.org/schema/mule/http/current/mule-http.xsd
+http://www.mulesoft.org/schema/mule/ee/core http://www.mulesoft.org/schema/mule/ee/core/current/mule-ee.xsd
+http://www.mulesoft.org/schema/mule/apikit-soap http://www.mulesoft.org/schema/mule/apikit-soap/current/mule-apikit-soap.xsd
+http://www.mulesoft.org/schema/mule/batch http://www.mulesoft.org/schema/mule/batch/current/mule-batch.xsd">
+	
+	<http:listener-config name="HTTP_Listener_config"  doc:name="HTTP Listener config" doc:id="39d3060f-88e9-4e44-969d-32572146b151" basePath="/">
+		<http:listener-connection host="localhost" port="8081" />
+		<http:listener-interceptors >
+			<http:cors-interceptor>
+				<http:origins >	
+					<http:public-resource />
+					<http:origin url="http://localhost:4200" accessControlMaxAge="30000" />
+				</http:origins>
+			</http:cors-interceptor>
+		</http:listener-interceptors>	
+	</http:listener-config>
+	
+	
+	<http:request-config name="HTTP_Request_configuration" doc:name="HTTP Request configuration" doc:id="7807b331-3fde-4b99-ae19-27003c06e21d">
+		<http:request-connection host="localhost" port="6000" />
+	</http:request-config>
+	<http:request-config name="HTTP_Request_5000" doc:name="HTTP Request configuration" doc:id="b8dd6a8a-6acc-40cc-8f74-cf364cee9c20" >
+		<http:request-connection host="localhost" port="5000" />
+	</http:request-config>
+	<http:request-config name="HTTP_Request_6000" doc:name="HTTP Request configuration" doc:id="5b4b542e-2f3c-491d-b8e6-449a23429294" >
+		<http:request-connection host="localhost" port="6000" />
+	</http:request-config>
+	<http:request-config name="HTTP_Request_4000" doc:name="HTTP Request configuration" doc:id="ab12f16b-6ad1-456b-96b0-e979eda82c98" >
+		<http:request-connection host="localhost" port="4000" />
+	</http:request-config>
+	<flow name="get_movies" doc:id="4140426b-ec35-4700-b510-e3c0de6389fc" >
+		<http:listener doc:name="Listener" doc:id="73771068-3eb9-4dfa-87e5-9f91c717a090" config-ref="HTTP_Listener_config" path="/movies" outputMimeType="application/json" allowedMethods="GET"/>
+		<http:request method="GET" doc:name="Request 4000" doc:id="ee62bdff-89a3-4b2f-a4d7-e178c60131fe" config-ref="HTTP_Request_4000" path="/movies"/>
+	</flow>
+	<flow name="get_shop_account" doc:id="d9ed6ec4-ac36-4509-a51c-0f002859efad">
+		<http:listener doc:name="get_account" doc:id="5213df6e-6bc9-4f1f-9b64-e4a9a6703304" config-ref="HTTP_Listener_config" path="/shop/get-account" outputMimeType="application/json" allowedMethods="GET"/>
+		<http:request method="GET" doc:name="get_account 4000" doc:id="634224f0-c6ab-4402-91cd-8c67930a214f" config-ref="HTTP_Request_4000" path="/get-account" />
+	</flow>
+	<flow name="set_shop_account" doc:id="73ca5109-a485-4ab5-b78f-660a254eb791" >
+		<http:listener doc:name="Listener" doc:id="3e70cce6-3d2c-4b78-b0e3-30e64a40d249" config-ref="HTTP_Listener_config" path="/shop/change-account" allowedMethods="GET"/>
+		<set-variable value="#[attributes.queryParams.account]" doc:name="account" doc:id="1721028e-0380-465e-90a2-d668f84c5e19" variableName="account"/>
+		<logger level="INFO" doc:name="Logger" doc:id="91f89513-7253-450b-b981-f04cab82d922" message="#"/>
+		<set-variable value="#[attributes.queryParams.corporation]" doc:name="corporation" doc:id="79088bd4-a375-4ed7-b839-47c36815c410" variableName="corporation"/>
+		<set-payload value="#[output application/json&#10;---&#10;{&#10;	account: vars.account as String,&#10;	corporation: vars.corporation as String&#10;}]" doc:name="Set Payload" doc:id="0d6e1df8-1bed-4cd0-a7f2-567674817905" />
+		<http:request method="POST" doc:name="Request" doc:id="b90c2064-4d32-4015-ae77-22cd61e282bf" config-ref="HTTP_Request_4000" path="/change-account"/>
+	</flow>
+	<flow name="get_movie_id" doc:id="20bf52f6-5808-42b8-b101-3df11420dd93">
+		<http:listener doc:name="Listener" doc:id="31359f6c-49ec-42bc-aaf1-8ca46c3e4dda" config-ref="HTTP_Listener_config" path="/movies/{id}" outputMimeType="application/json" allowedMethods="GET"/>
+		<logger level="INFO" doc:name="Logger" doc:id="2ac8fdb4-4552-4c1c-8355-acf686dc8097" message="get id #[attributes.uriParams.id]"/>
+		<http:request method="GET" doc:name="Request 4000" doc:id="8a08fbba-5fb1-4923-bba9-8d94e3adcd9b" config-ref="HTTP_Request_4000" path="/movies/{id}" >
+			<http:uri-params ><![CDATA[#[output application/java
+---
+{
+	id : attributes.uriParams.id
+}]]]></http:uri-params>
+		</http:request>
+	</flow>
+	<flow name="POST-consulta-cuenta" doc:id="7aa122bc-1237-4170-970b-6021e774d169" >
+	
+ 		
+		<http:listener doc:name="Listener" doc:id="b3b38cdc-3f6f-4854-b269-8f16c65e5392" config-ref="HTTP_Listener_config" path="/search-account" outputMimeType="application/json" allowedMethods="GET">
+		</http:listener>
+
+		<logger level="INFO" doc:name="Logger" doc:id="07cb17d4-ed33-4812-a4af-8b16b08e27b4" message="#[attributes.queryParams]"/>
+		<set-variable value="#[attributes.queryParams.account]" doc:name="Set Variable" doc:id="bae85435-421b-4ce6-95a3-ef08fa300aab" variableName="account"/>
+		<set-variable value="#[attributes.queryParams.corporation]" doc:name="Set Variable" doc:id="b6799c17-bf3a-410f-b87e-cb90ea0a8afa" variableName="corporation"/>
+		<set-payload value="#[output application/java&#10;---&#10;{&#10;	account: vars.account as String,&#10;	corporation: vars.corporation as String&#10;}]" doc:name="Set Payload" doc:id="856ba9e0-fc77-4915-8540-07cadf25df9c" />
+		<logger level="INFO" doc:name="Logger" doc:id="ceeeb140-8789-4497-97f5-78d3bff2a5ce" message="payload #[payload]"/>
+		<choice doc:name="Choice" doc:id="78b59aba-31a1-4ab7-85b9-0272f089bd2c" >
+			<when expression="#[payload.corporation == 'Banco del Austro']">
+				<http:request method="GET" doc:name="BA_Request_5000" doc:id="bf96f1ba-2df0-44d7-bbbd-3ed97e89054e" config-ref="HTTP_Request_5000" path="/account/{account}" >
+					<http:uri-params ><![CDATA[#[output application/java
+---
+{
+	"account" : payload.account
+}]]]></http:uri-params>
+				</http:request>
+				<logger level="INFO" doc:name="Copy_of_Logger" doc:id="e1d12df2-dfa1-41b8-afcb-97fca99a9279" message="request BA #[payload]" />
+				<logger level="INFO" doc:name="Logger" doc:id="b5f92999-bc81-4b84-80e5-f88a69244e4c" message="Server BA"/>
+			</when>
+			<when expression="#[payload.corporation == 'Banco del Pichincha']">
+				<http:request method="GET" doc:name="BP_Request_6000" doc:id="7b71e7ed-e1fc-47a4-bf41-b8325859b204" config-ref="HTTP_Request_6000" path="/account/{account}" >
+					<http:uri-params ><![CDATA[#[output application/java
+---
+{
+	"account" : payload.account
+}]]]></http:uri-params>
+				</http:request>
+				<logger level="INFO" doc:name="loger BP" doc:id="0b8cdd81-5dc3-40bc-9326-e82d5d38f1a6" message="request BA #[payload]" />
+			</when>
+			<otherwise >
+				<logger level="INFO" doc:name="Logger" doc:id="546ed8dc-8ef9-491a-81c9-604ae33ec6eb" message="Chois Default #[payload.corporation]"/>
+			</otherwise>
+		</choice>
+	</flow>
+	<flow name="post_transactions" doc:id="225aa9ae-8b61-4e56-94e9-2c4fc28c49c6" >
+		<http:listener doc:name="Listener" doc:id="a9907179-4edc-4e03-b556-f7f439ccf208" config-ref="HTTP_Listener_config" path="/transfer" allowedMethods="GET" outputMimeType="application/json">
+		</http:listener>
+		<logger level="INFO" doc:name="Logger" doc:id="bd44ab15-5224-42f9-b007-d134569bbf76" message="date enter #[attributes.queryParams]"/>
+		<set-payload value="#[output application/java&#10;---&#10;{&#10;	amount: attributes.queryParams.amount,&#10;	accountOrigin: {&#10;		account: attributes.queryParams.accountO,&#10;		organisation: attributes.queryParams.organisationO&#10;	},&#10;	accountDestination: {&#10;		account: attributes.queryParams.accountD,&#10;		organisation: attributes.queryParams.organisationD&#10;	}&#10;}]" doc:name="Set Payload" doc:id="830017ee-ad09-40de-a43f-37a1cae29446" />
+		<logger level="INFO" doc:name="Logger" doc:id="500068e6-ca27-4c37-823e-2a4635668af4" message="request trasfer #[payload]"/>
+		<choice doc:name="Choice_Origin" doc:id="b2ede553-8268-4fcb-abf1-1a8808eb91f1" >
+			<when expression="#[payload.accountOrigin.organisation == 'Banco del Austro']" >
+				<logger level="INFO" doc:name="Copy_of_Logger" doc:id="1a9bc9d8-7211-49e8-bd38-60352b17480c" message="data ba #[payload]" />
+				<logger level="INFO" doc:name="Copy_of_Copy_of_Logger" doc:id="19c22be4-f153-414a-ba2b-a1818d00341b" message="request BA #[payload.accountDestination.account]" />
+				<http:request method="POST" doc:name="BA_Request_5000" doc:id="5075fee6-ac57-4a6e-b13d-718cf4347ee9" config-ref="HTTP_Request_5000" path="/account/transfer-send" outputMimeType="application/json">
+					<http:body ><![CDATA[#[output application/json
+---
+{
+	amount: payload.amount,
+	accountOrigin: {
+		account: payload.accountOrigin.account,
+		organisation: payload.accountOrigin.organisation
+	},
+	accountDestination: {
+		account: payload.accountDestination.account,
+		organisation: payload.accountDestination.organisation
+	}
+}]]]></http:body>
+				</http:request>
+			</when>
+			<when expression="#[payload.accountOrigin.organisation == 'Banco del Pichincha']" >
+				<logger level="INFO" doc:name="Copy_of_loger BP" doc:id="cce668b8-277b-4bde-a2aa-dddd424a31ca" message="request BA #[payload]" />
+				<http:request method="POST" doc:name="BP_Request_6000" doc:id="138dc87c-6bf9-4237-90f0-ac059e8ee438" config-ref="HTTP_Request_6000" path="/account/transfer-send" outputMimeType="application/json" >
+					<http:body ><![CDATA[#[output application/json
+---
+{
+	amount: payload.amount,
+	accountOrigin: {
+		account: payload.accountOrigin.account,
+		organisation: payload.accountOrigin.organisation
+	},
+	accountDestination: {
+		account: payload.accountDestination.account,
+		organisation: payload.accountDestination.organisation
+	}
+}]]]></http:body>
+				</http:request>
+			</when>
+			<otherwise >
+				<logger level="INFO" doc:name="Logger_Origin" doc:id="942917fc-5b79-407c-8657-cc80a87818d3" message="Chois Default #[payload.corporation]" />
+			</otherwise>
+		</choice>
+		<set-payload value="#[output application/json&#10;---&#10;{&#10;	amount: payload.amount,&#10;	accountOrigin: {&#10;		account: payload.accountOrigin.account,&#10;		organisation: payload.accountOrigin.organisation&#10;	},&#10;	accountDestination: {&#10;		account: payload.accountDestination.account,&#10;		organisation: payload.accountDestination.organisation&#10;	}&#10;}]" doc:name="Set Payload" doc:id="1a6cfc7e-bc43-4c57-9277-c1461fd0177b" />
+		<choice doc:name="Choice_Destination" doc:id="1cbb651f-1e21-464f-b42c-3d788035f742" >
+			<when expression="#[payload.accountDestination.organisation == 'Banco del Austro']" >
+				<http:request method="POST" doc:name="Destination_BA_Request_5000" doc:id="82d3bc9a-4241-4371-a9df-2d0c61527e95" config-ref="HTTP_Request_5000" path="/account/transfer-received" outputMimeType="application/json" >
+					<http:body ><![CDATA[#[output application/json
+---
+{
+	amount: payload.amount,
+	accountOrigin: {
+		account: payload.accountOrigin.account,
+		organisation: payload.accountOrigin.organisation
+	},
+	accountDestination: {
+		account: payload.accountDestination.account,
+		organisation: payload.accountDestination.organisation
+	}
+}]]]></http:body>
+				</http:request>
+			</when>
+			<when expression="#[payload.accountDestination.organisation == 'Banco del Pichincha']" >
+				<http:request method="POST" doc:name="Destination_BP_Request_6000" doc:id="c9890bca-5031-404f-8e3a-b6c3c3f2ac40" config-ref="HTTP_Request_6000" path="/account/transfer-received" outputMimeType="application/json" >
+					<http:body ><![CDATA[#[output application/json
+---
+{
+	amount: payload.amount,
+	accountOrigin: {
+		account: payload.accountOrigin.account,
+		organisation: payload.accountOrigin.organisation
+	},
+	accountDestination: {
+		account: payload.accountDestination.account,
+		organisation: payload.accountDestination.organisation
+	}
+}]]]></http:body>
+				</http:request>
+			</when>
+			<otherwise >
+				<logger level="INFO" doc:name="Logger_Destination" doc:id="eac85f8b-0e1a-49d4-9daa-5b4f49d4795e" message="Chois Default #[payload.corporation]" />
+			</otherwise>
+		</choice>
+	</flow>
+</mule>

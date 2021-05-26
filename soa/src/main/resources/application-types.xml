@@ -1,0 +1,73 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<types:mule xmlns:types="http://www.mulesoft.org/schema/mule/types">
+  <types:catalog>
+    <types:type name="user" format="java">
+      <types:shape format="raml"><![CDATA[#%RAML 1.0 DataType
+type: object
+properties:
+    account:
+        type: string
+    corporation:
+        type: string]]></types:shape>
+    </types:type>
+    <types:type name="transaction" format="java">
+      <types:shape format="raml"><![CDATA[#%RAML 1.0 DataType
+type: object
+properties:
+    amount:
+        type: number
+    accountOrigin:
+        properties:
+            account:
+                type: string
+            organisation:
+                type: string
+    accountDestination:
+        properties:
+            account:
+                type: string
+            organisation:
+                type: string]]></types:shape>
+    </types:type>
+    <types:type name="id" format="java">
+      <types:shape format="raml"><![CDATA[#%RAML 1.0 DataType
+type: number]]></types:shape>
+    </types:type>
+  </types:catalog>
+  <types:enrichment select="#0d6e1df8-1bed-4cd0-a7f2-567674817905"/>
+  <types:enrichment select="#5075fee6-ac57-4a6e-b13d-718cf4347ee9">
+    <types:operation-declaration>
+      <types:inputs>
+        <types:parameter name="body" type="transaction"/>
+      </types:inputs>
+    </types:operation-declaration>
+  </types:enrichment>
+  <types:enrichment select="#1a6cfc7e-bc43-4c57-9277-c1461fd0177b">
+    <types:processor-declaration>
+      <types:input-event>
+        <types:message>
+          <types:payload type="transaction"/>
+        </types:message>
+      </types:input-event>
+    </types:processor-declaration>
+    <types:operation-declaration>
+      <types:inputs>
+        <types:parameter name="value" type="transaction"/>
+      </types:inputs>
+    </types:operation-declaration>
+  </types:enrichment>
+  <types:enrichment select="#856ba9e0-fc77-4915-8540-07cadf25df9c">
+    <types:operation-declaration>
+      <types:inputs>
+        <types:parameter name="value" type="user"/>
+      </types:inputs>
+    </types:operation-declaration>
+  </types:enrichment>
+  <types:enrichment select="#830017ee-ad09-40de-a43f-37a1cae29446">
+    <types:operation-declaration>
+      <types:inputs>
+        <types:parameter name="value" type="transaction"/>
+      </types:inputs>
+    </types:operation-declaration>
+  </types:enrichment>
+</types:mule>
